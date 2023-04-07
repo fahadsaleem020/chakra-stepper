@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "fahadsaleem",
   "keywords": [
-    "@chakra-ui/react stepper"
+    "@chakra-ui/react chakra-stepper"
   ],
   "files": [
     "/lib",
