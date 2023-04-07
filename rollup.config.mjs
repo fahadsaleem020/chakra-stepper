@@ -14,7 +14,7 @@ export default defineConfig([
       format: "esm",
       sourcemap: true,
     },
-
+    context: "window",
     plugins: [
       del({ targets: "lib/*", verbose: true }),
       terser(),
