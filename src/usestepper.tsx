@@ -36,12 +36,12 @@ const stepperReducer = (
 };
 
 /**
-Creates a stepper hook that helps manage progress through a series of steps.
-@param {string[]} steps - An array of strings representing the steps to be completed.
-@param {string} initialStep - An optional parameter representing the initial step to start with.
-@returns An object containing methods to manage the stepper, including resetting, jumping to a specific step, checking if a step is finished, and marking all steps as finished.
-*/
-export const useStepper = (steps: string[], initialStep?: string) => {
+ * A custom hook that helps manage progress through a series of steps by returning an object containing methods to manage the stepper.
+@param {T[]} steps - An array of strings representing the steps to be completed.
+@param {T} initialStep - An optional parameter representing the initial step to start with.
+@returns {Object} An object containing methods to manage the stepper, including resetting, jumping to a specific step, checking if a step is finished, and marking all steps as finished.
+ */
+export const useStepper = <T extends string>(steps: T[], initialStep?: T) => {
   const initialData = Object.fromEntries(steps.map((key) => [key, false]));
   const [state, dispatch] = useReducer(stepperReducer, initialData);
 
@@ -49,10 +49,10 @@ export const useStepper = (steps: string[], initialStep?: string) => {
     initialStep && dispatch({ type: "jump", step: initialStep });
   }, [initialStep]);
 
-  const isStepFinished = useCallback((id: string) => state[id], [state]);
+  const isStepFinished = useCallback((step: T) => state[step], [state]);
 
   const goToStep = useCallback(
-    (step: string) => dispatch({ step, type: "jump" }),
+    (step: T) => dispatch({ step, type: "jump" }),
     []
   );
 

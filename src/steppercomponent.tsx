@@ -1,4 +1,4 @@
-import { Button, Center, useMediaQuery } from "@chakra-ui/react";
+import { useMediaQuery } from "@chakra-ui/react";
 import { useStepper } from "./usestepper";
 import React, { FC } from "react";
 import { MdWarning } from "react-icons/md";
@@ -11,14 +11,14 @@ import { Steps } from "./steps";
 const StepperComponent: FC = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
   const { isStepFinished, reset, setAllFinished, goToStep } = useStepper([
-    "details",
-    "cart",
-    "checkout",
+    "one",
+    "two",
+    "three",
+    "fourth",
   ]);
 
   return (
     <Stepper
-      trackGap={0}
       border="1px"
       rounded="3xl"
       borderColor={"gray.100"}
@@ -26,28 +26,31 @@ const StepperComponent: FC = () => {
       maxW="container.md"
       shadow="0px 223px 89px rgba(0, 0, 0, 0.01), 0px 126px 75px rgba(0, 0, 0, 0.03), 0px 56px 56px rgba(0, 0, 0, 0.04), 0px 14px 31px rgba(0, 0, 0, 0.05), 0px 0px 0px rgba(0, 0, 0, 0.05)"
       mx="auto"
-      h="sm"
+      h="xs"
     >
       <Steps>
         <Step
-          label={{ title: "Details", description: "Provide user details" }}
-          isActive={!isStepFinished("details")}
-          isFinished={isStepFinished("details")}
+          label={{ title: "step one", description: "optional" }}
+          isActive={!isStepFinished("one")}
+          isFinished={isStepFinished("one")}
           icon={{ active: <>1</>, error: <MdWarning size={20} /> }}
           withTrack
+          clickable={() => goToStep("one")}
         />
         <Step
-          label={{ title: "Cart", description: "Cart details" }}
+          clickable={() => goToStep("two")}
+          label={{ title: "step two", description: "optional" }}
           icon={{ active: <>2</>, inactive: <>2</> }}
-          isActive={isStepFinished("details")}
-          isFinished={isStepFinished("cart")}
+          isActive={isStepFinished("one")}
+          isFinished={isStepFinished("two")}
           withTrack
         />
         <Step
-          label={{ title: "Checkout", description: "Payment details" }}
+          clickable={() => goToStep("three")}
+          label={{ title: "step three", description: "optional" }}
           icon={{ active: <>3</>, inactive: <>3</> }}
-          isActive={isStepFinished("cart")}
-          isFinished={isStepFinished("checkout")}
+          isActive={isStepFinished("two")}
+          isFinished={isStepFinished("three")}
         />
       </Steps>
       <StepperContent
@@ -56,37 +59,13 @@ const StepperComponent: FC = () => {
         border="1px"
         borderColor="gray.200"
       >
-        <StepperBody
-          show={!isStepFinished("details")}
-          hide={isStepFinished("cart")}
-        >
-          <Button onClick={() => goToStep("cart")}>to Cart</Button>
-          <Button onClick={setAllFinished}>Set all done</Button>
+        <StepperBody show={!isStepFinished("one")}>step one</StepperBody>
+        <StepperBody show={isStepFinished("one") && !isStepFinished("two")}>
+          step two
         </StepperBody>
-
-        <StepperBody
-          show={isStepFinished("details")}
-          hide={isStepFinished("cart")}
-        >
-          <Button onClick={() => reset()}>Go Back</Button>
-          <Button onClick={() => goToStep("checkout")}>to Checkout</Button>
+        <StepperBody show={isStepFinished("two") && !isStepFinished("three")}>
+          step three
         </StepperBody>
-
-        <StepperBody
-          show={isStepFinished("cart")}
-          hide={isStepFinished("checkout")}
-        >
-          <Button onClick={() => goToStep("cart")}>Go Back</Button>
-          <Button onClick={() => setAllFinished()}>Complete</Button>
-        </StepperBody>
-        <Center h="full">
-          <StepperBody
-            show={isStepFinished("checkout")}
-            hide={!isStepFinished("checkout")}
-          >
-            All good!
-          </StepperBody>
-        </Center>
       </StepperContent>
     </Stepper>
   );

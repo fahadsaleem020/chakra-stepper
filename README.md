@@ -1,1 +1,1 @@
-# provider for chakra editor
+# chakra-ui stepper

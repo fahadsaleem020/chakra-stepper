@@ -14,7 +14,7 @@ import { TrackProps, Track } from "./track";
 export const Step: FC<
   {
     isLoading?: boolean;
-    isError?: boolean;
+    isInvalid?: boolean;
     isActive: boolean;
     isFinished: boolean;
     label?: Partial<{
@@ -68,7 +68,7 @@ export const Step: FC<
   trackForeGroundColor,
   clickable,
   isLoading,
-  isError,
+  isInvalid,
 }) => {
   const { circlePlacement } = useStepperTheme();
   let buttonStyles: IconButtonProps;
@@ -86,10 +86,10 @@ export const Step: FC<
   } else if (isActive) {
     buttonStyles = {
       variant: "outline",
-      colorScheme: isError ? "red" : circleColorScheme ?? "blue",
+      colorScheme: isInvalid ? "red" : circleColorScheme ?? "blue",
       rounded: circleRadius ?? "full",
       "aria-label": "step",
-      icon: isError ? icon?.error : icon?.active,
+      icon: isInvalid ? icon?.error : icon?.active,
     };
   } else {
     buttonStyles = {
@@ -152,7 +152,7 @@ export const Step: FC<
               lineHeight={1}
               fontSize={labelFontSize?.title ?? "md"}
               fontWeight="semibold"
-              color={labelColor?.title ?? isError ? "red.600" : undefined}
+              color={labelColor?.title ?? isInvalid ? "red.600" : undefined}
             >
               {label?.title}
             </Text>
