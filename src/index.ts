@@ -1,4 +1,3 @@
-export { StepperWrapper } from "./stepperwrapper";
 export { StepperContent } from "./steppercontent";
 export { StepperBody } from "./stepperbody";
 export { useStepper } from "./usestepper";

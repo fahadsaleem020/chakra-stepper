@@ -7,7 +7,7 @@
     "skipLibCheck": true,
     "esModuleInterop": false,
     "declaration": true,
-    "outDir": "lib",
+    "outDir": "src/lib",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,6 +18,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", "index.tsx", "lib"],
+  "include": ["src", "index.tsx", "src/lib"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

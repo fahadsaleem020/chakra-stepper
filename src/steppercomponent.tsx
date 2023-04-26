@@ -1,20 +1,15 @@
-import { useMediaQuery } from "@chakra-ui/react";
-import { useStepper } from "./usestepper";
-import React, { FC } from "react";
-import { MdWarning } from "react-icons/md";
-import { Step } from "./step";
-import { Stepper } from "./stepper";
-import { StepperBody } from "./stepperbody";
 import { StepperContent } from "./steppercontent";
+import { useMediaQuery } from "@chakra-ui/react";
+import { StepperBody } from "./stepperbody";
+import { useStepper } from "./usestepper";
+import { Stepper } from "./stepper";
+import React, { FC } from "react";
 import { Steps } from "./steps";
+import { Step } from "./step";
 
 const StepperComponent: FC = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
-  const { isStepFinished, reset, setAllFinished, goToStep } = useStepper([
-    "one",
-    "two",
-    "three",
-  ]);
+  const { isStepFinished, goToStep } = useStepper(["one", "two", "three"]);
 
   return (
     <Stepper
@@ -31,27 +26,36 @@ const StepperComponent: FC = () => {
     >
       <Steps>
         <Step
-          label={{ title: "step one", description: "optional" }}
+          label={{ title: "Signup" }}
+          clickable={() => goToStep("one")}
           isActive={!isStepFinished("one")}
           isFinished={isStepFinished("one")}
-          icon={{ active: <>1</>, error: <MdWarning size={20} /> }}
+          icon={{ active: <>1</> }}
           withTrack
-          clickable={() => goToStep("one")}
+          animate
         />
         <Step
+          label={{ title: "Verify" }}
+          labelColor={{ title: "green" }}
           clickable={() => goToStep("two")}
-          label={{ title: "step two", description: "optional" }}
-          icon={{ active: <>2</>, inactive: <>2</> }}
           isActive={isStepFinished("one")}
           isFinished={isStepFinished("two")}
           withTrack
+          animate
+          icon={{
+            active: <>2</>,
+            inactive: <>2</>,
+          }}
         />
         <Step
+          label={{ title: "Signin" }}
           clickable={() => goToStep("three")}
-          label={{ title: "step three", description: "optional" }}
-          icon={{ active: <>3</>, inactive: <>3</> }}
           isActive={isStepFinished("two")}
           isFinished={isStepFinished("three")}
+          icon={{
+            active: <>3</>,
+            inactive: <>3</>,
+          }}
         />
       </Steps>
       <StepperContent
