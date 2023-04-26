@@ -4,7 +4,7 @@ import { IconBaseProps } from "react-icons";
 import { TrackProps } from "./track";
 export declare const Step: FC<{
     isLoading?: boolean;
-    isError?: boolean;
+    isInvalid?: boolean;
     isActive: boolean;
     isFinished: boolean;
     label?: Partial<{

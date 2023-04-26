@@ -1,8 +1,8 @@
-import { BoxProps } from "@chakra-ui/react";
+import { BoxProps, LayoutProps } from "@chakra-ui/react";
 import { FC } from "react";
 export interface TrackProps {
     isFinished?: boolean;
-    trackThickness?: "3pt" | "1pt" | "2pt";
+    trackThickness?: LayoutProps["w"];
     animate?: boolean | BoxProps["transition"];
     trackBackgroundColor?: BoxProps["bgColor"];
     trackForeGroundColor?: BoxProps["bgColor"];

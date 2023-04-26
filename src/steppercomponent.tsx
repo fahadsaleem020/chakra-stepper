@@ -14,11 +14,11 @@ const StepperComponent: FC = () => {
     "one",
     "two",
     "three",
-    "fourth",
   ]);
 
   return (
     <Stepper
+      mt="5"
       border="1px"
       rounded="3xl"
       borderColor={"gray.100"}

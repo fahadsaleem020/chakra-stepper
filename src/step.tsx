@@ -100,6 +100,7 @@ export const Step: FC<
     };
   }
 
+  console.log(isInvalid);
   return (
     <>
       <Flex
@@ -130,7 +131,13 @@ export const Step: FC<
               lineHeight={1}
               fontSize={labelFontSize?.title}
               fontWeight="semibold"
-              color={labelColor?.title}
+              color={
+                labelColor?.title
+                  ? labelColor?.title
+                  : isInvalid
+                  ? "red.600"
+                  : undefined
+              }
             >
               {label.title}
             </Text>
@@ -139,12 +146,19 @@ export const Step: FC<
               whiteSpace="nowrap"
               as={"h3"}
               fontSize={labelFontSize?.description ?? "sm"}
-              color={labelColor?.description}
+              color={
+                labelColor?.description
+                  ? labelColor?.description
+                  : isInvalid
+                  ? "red.600"
+                  : undefined
+              }
             >
               {label?.description}
             </Text>
           </Flex>
         ) : (
+          // here
           label?.title && (
             <Text
               order={circlePlacement === "right" ? 1 : 2}
@@ -152,7 +166,13 @@ export const Step: FC<
               lineHeight={1}
               fontSize={labelFontSize?.title ?? "md"}
               fontWeight="semibold"
-              color={labelColor?.title ?? isInvalid ? "red.600" : undefined}
+              color={
+                labelColor?.title
+                  ? labelColor?.title
+                  : isInvalid
+                  ? "red.600"
+                  : undefined
+              }
             >
               {label?.title}
             </Text>
