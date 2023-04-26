@@ -9,11 +9,14 @@ import { Step } from "./step";
 
 const StepperComponent: FC = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
-  const { isStepFinished, goToStep } = useStepper(["one", "two", "three"]);
+  const { isStepFinished, goToStep, data } = useStepper([
+    "one",
+    "two",
+    "three",
+  ]);
 
   return (
     <Stepper
-      trackGap={0}
       mt="5"
       border="1px"
       rounded="3xl"
@@ -26,8 +29,8 @@ const StepperComponent: FC = () => {
     >
       <Steps>
         <Step
-          label={{ title: "Signup" }}
-          clickable={() => goToStep("one")}
+          label={{ title: "One" }}
+          clickable={() => goToStep("one", "log one")}
           isActive={!isStepFinished("one")}
           isFinished={isStepFinished("one")}
           icon={{ active: <>1</> }}
@@ -35,9 +38,8 @@ const StepperComponent: FC = () => {
           animate
         />
         <Step
-          label={{ title: "Verify" }}
-          labelColor={{ title: "green" }}
-          clickable={() => goToStep("two")}
+          label={{ title: "Two" }}
+          clickable={() => goToStep("two", "log two")}
           isActive={isStepFinished("one")}
           isFinished={isStepFinished("two")}
           withTrack
@@ -48,8 +50,8 @@ const StepperComponent: FC = () => {
           }}
         />
         <Step
-          label={{ title: "Signin" }}
-          clickable={() => goToStep("three")}
+          label={{ title: "Three" }}
+          clickable={() => goToStep("three", "log three")}
           isActive={isStepFinished("two")}
           isFinished={isStepFinished("three")}
           icon={{
@@ -64,12 +66,12 @@ const StepperComponent: FC = () => {
         border="1px"
         borderColor="gray.200"
       >
-        <StepperBody show={!isStepFinished("one")}>step one</StepperBody>
+        <StepperBody show={!isStepFinished("one")}>{data}</StepperBody>
         <StepperBody show={isStepFinished("one") && !isStepFinished("two")}>
-          step two
+          {data}
         </StepperBody>
         <StepperBody show={isStepFinished("two") && !isStepFinished("three")}>
-          step three
+          {data}
         </StepperBody>
       </StepperContent>
     </Stepper>

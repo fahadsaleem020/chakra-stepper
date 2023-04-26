@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 
 type Actions = {
   type: "setallfinished" | "reset" | "jump";
@@ -44,6 +44,7 @@ const stepperReducer = (
 export const useStepper = <T extends string>(steps: T[], initialStep?: T) => {
   const initialData = Object.fromEntries(steps.map((key) => [key, false]));
   const [state, dispatch] = useReducer(stepperReducer, initialData);
+  const [data, setData] = useState<any>();
 
   useEffect(() => {
     initialStep && dispatch({ type: "jump", step: initialStep });
@@ -52,8 +53,11 @@ export const useStepper = <T extends string>(steps: T[], initialStep?: T) => {
   const isStepFinished = useCallback((step: T) => state[step], [state]);
 
   const goToStep = useCallback(
-    (step: T) => dispatch({ step, type: "jump" }),
-    []
+    <D>(step: T, data?: D) => {
+      if (data) setData(data);
+      dispatch({ step, type: "jump" });
+    },
+    [data]
   );
 
   const setAllFinished = useCallback(
@@ -70,5 +74,6 @@ export const useStepper = <T extends string>(steps: T[], initialStep?: T) => {
     goToStep,
     isStepFinished,
     setAllFinished,
+    data,
   };
 };
