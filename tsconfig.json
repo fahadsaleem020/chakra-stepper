@@ -18,6 +18,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", "index.tsx", "src/lib"],
+  "include": ["src", "index.tsx", "src/lib", "index.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

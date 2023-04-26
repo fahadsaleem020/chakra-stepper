@@ -66,29 +66,16 @@ const StepperComponent: FC = () => {
         border="1px"
         borderColor="gray.200"
       >
-        <StepperBody show={!isStepFinished("one")}>
-          <Test goToStep={goToStep} />
-        </StepperBody>
+        <StepperBody show={!isStepFinished("one")}></StepperBody>
         <StepperBody show={isStepFinished("one") && !isStepFinished("two")}>
           {data}
         </StepperBody>
         <StepperBody show={isStepFinished("two") && !isStepFinished("three")}>
           {data}
-          <TestComponent data={data} />
         </StepperBody>
       </StepperContent>
     </Stepper>
   );
-};
-
-const Test: FC<{ goToStep: (step: any, data?: any) => void }> = ({
-  goToStep,
-}) => {
-  return <Button onClick={() => goToStep("three", "test data")}>test</Button>;
-};
-
-const TestComponent: FC<{ data: any }> = ({ data }) => {
-  return <>from component: {data}</>;
 };
 
 export default StepperComponent;

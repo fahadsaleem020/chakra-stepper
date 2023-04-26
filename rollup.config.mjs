@@ -8,7 +8,7 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default defineConfig([
   {
-    input: "src/index.ts",
+    input: "index.ts",
 
     output: {
       file: pkg.module,
