@@ -100,7 +100,6 @@ export const Step: FC<
     };
   }
 
-  console.log(isInvalid);
   return (
     <>
       <Flex
@@ -158,7 +157,6 @@ export const Step: FC<
             </Text>
           </Flex>
         ) : (
-          // here
           label?.title && (
             <Text
               order={circlePlacement === "right" ? 1 : 2}

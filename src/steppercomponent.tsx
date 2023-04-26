@@ -18,6 +18,7 @@ const StepperComponent: FC = () => {
 
   return (
     <Stepper
+      trackGap={0}
       mt="5"
       border="1px"
       rounded="3xl"
