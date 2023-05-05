@@ -1,22 +1,35 @@
 import {
-  HeadingProps,
   IconButtonProps,
-  Flex,
+  HeadingProps,
   IconButton,
+  Flex,
   Text,
 } from "@chakra-ui/react";
 import React, { FC, ReactElement } from "react";
 import { IconBaseProps } from "react-icons";
-import { MdCheck } from "react-icons/md";
 import { useStepperTheme } from "./stepper";
 import { TrackProps, Track } from "./track";
+import { MdCheck } from "react-icons/md";
+import { State } from "./usestepper";
 
-export const Step: FC<
-  {
+type StepState =
+  | {
+      state: State;
+      stepKey: keyof State;
+      isActive?: never;
+      isFinished?: never;
+    }
+  | {
+      state?: never;
+      stepKey?: never;
+      isActive: boolean;
+      isFinished: boolean;
+    };
+
+type StepComponent = FC<
+  StepState & {
     isLoading?: boolean;
     isInvalid?: boolean;
-    isActive: boolean;
-    isFinished: boolean;
     label?: Partial<{
       title: string;
       description: string;
@@ -30,106 +43,110 @@ export const Step: FC<
       description: HeadingProps["size"];
     }>;
     icon?: Partial<{
+      error: ReactElement;
       active: ReactElement;
       inactive: ReactElement;
       finished: ReactElement;
-      error: ReactElement;
     }>;
     iconSize?: IconBaseProps["size"];
     iconColor?: IconBaseProps["color"];
-    circleRadius?: IconButtonProps["rounded"];
     circleSize?: IconButtonProps["size"];
+    circleRadius?: IconButtonProps["rounded"];
     circleColorScheme?: IconButtonProps["colorScheme"];
     withTrack?: boolean;
     clickable?: () => void;
   } & Pick<
-    TrackProps,
-    | "trackThickness"
-    | "animate"
-    | "trackBackgroundColor"
-    | "trackForeGroundColor"
-  >
-> = ({
-  label,
-  labelColor,
-  labelFontSize,
+      TrackProps,
+      | "trackBackgroundColor"
+      | "trackForeGroundColor"
+      | "trackThickness"
+      | "animate"
+    >
+>;
+
+export const Step: StepComponent = ({
   icon,
-  iconColor,
-  iconSize,
-  withTrack,
-  trackThickness,
-  isActive,
-  isFinished,
+  label,
+  state,
+  stepKey,
   animate,
-  circleSize,
-  circleRadius,
-  circleColorScheme,
-  trackBackgroundColor,
-  trackForeGroundColor,
+  iconSize,
+  isActive,
+  iconColor,
   clickable,
   isLoading,
   isInvalid,
+  withTrack,
+  labelColor,
+  isFinished,
+  circleSize,
+  circleRadius,
+  labelFontSize,
+  trackThickness,
+  circleColorScheme,
+  trackBackgroundColor,
+  trackForeGroundColor,
 }) => {
   const { circlePlacement } = useStepperTheme();
   let buttonStyles: IconButtonProps;
 
-  if (isFinished) {
+  if (state?.[stepKey].isFinished ?? isFinished) {
     buttonStyles = {
       variant: "solid",
-      colorScheme: circleColorScheme ?? "blue",
-      rounded: circleRadius ?? "full",
       "aria-label": "step",
+      rounded: circleRadius ?? "full",
+      colorScheme: circleColorScheme ?? "blue",
       icon: icon?.finished ?? (
         <MdCheck size={iconSize ?? 20} color={iconColor} />
       ),
     };
-  } else if (isActive) {
+  } else if (state?.[stepKey].isActive ?? isActive) {
     buttonStyles = {
       variant: "outline",
-      colorScheme: isInvalid ? "red" : circleColorScheme ?? "blue",
-      rounded: circleRadius ?? "full",
       "aria-label": "step",
+      rounded: circleRadius ?? "full",
       icon: isInvalid ? icon?.error : icon?.active,
+      colorScheme: isInvalid ? "red" : circleColorScheme ?? "blue",
     };
   } else {
     buttonStyles = {
       colorScheme: "gray",
-      rounded: circleRadius ?? "full",
       "aria-label": "step",
       icon: icon?.inactive,
+      rounded: circleRadius ?? "full",
     };
   }
 
   return (
     <>
       <Flex
-        onClick={clickable}
         gap={2}
+        onClick={clickable}
         alignItems="center"
         justifyContent="space-between"
         cursor={clickable ? "pointer" : "default"}
       >
         <IconButton
-          isLoading={isLoading}
-          order={circlePlacement === "right" ? 2 : 1}
           as="div"
           _hover={{}}
           _active={{}}
           size={circleSize}
+          isLoading={isLoading}
           cursor={clickable ? "pointer" : "default"}
+          order={circlePlacement === "right" ? 2 : 1}
           {...buttonStyles}
         />
         {label?.title && label?.description ? (
           <Flex
             flexDir="column"
-            alignItems={circlePlacement === "right" ? "end" : undefined}
             order={circlePlacement === "right" ? 1 : 2}
+            alignItems={circlePlacement === "right" ? "end" : undefined}
           >
             <Text
               as={"h2"}
               lineHeight={1}
-              fontSize={labelFontSize?.title}
               fontWeight="semibold"
+              fontSize={labelFontSize?.title}
               color={
                 labelColor?.title
                   ? labelColor?.title
@@ -142,8 +159,8 @@ export const Step: FC<
             </Text>
 
             <Text
-              whiteSpace="nowrap"
               as={"h3"}
+              whiteSpace="nowrap"
               fontSize={labelFontSize?.description ?? "sm"}
               color={
                 labelColor?.description
@@ -159,11 +176,11 @@ export const Step: FC<
         ) : (
           label?.title && (
             <Text
-              order={circlePlacement === "right" ? 1 : 2}
               as={"h2"}
               lineHeight={1}
-              fontSize={labelFontSize?.title ?? "md"}
               fontWeight="semibold"
+              fontSize={labelFontSize?.title ?? "md"}
+              order={circlePlacement === "right" ? 1 : 2}
               color={
                 labelColor?.title
                   ? labelColor?.title
@@ -179,8 +196,8 @@ export const Step: FC<
       </Flex>
       {withTrack && (
         <Track
-          isFinished={isFinished}
           animate={animate}
+          isFinished={state?.[stepKey].isFinished ?? isFinished}
           trackThickness={trackThickness}
           trackBackgroundColor={trackBackgroundColor ?? "gray.100"}
           trackForeGroundColor={trackForeGroundColor ?? "blue.500"}

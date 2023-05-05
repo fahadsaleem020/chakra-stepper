@@ -9,51 +9,48 @@ import { Step } from "./step";
 
 const StepperComponent: FC = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
-  const { isStepFinished, goToStep, data } = useStepper([
-    "one",
-    "two",
-    "three",
-  ]);
+
+  const { isStepActive, setAllFinished, goToStep, state, reset, data, step } =
+    useStepper(["one", "two", "three"]);
 
   return (
     <Stepper
+      h="xs"
       mt="5"
+      mx="auto"
       border="1px"
       rounded="3xl"
-      borderColor={"gray.100"}
       vertical={isMobile}
       maxW="container.md"
+      borderColor={"gray.100"}
       shadow="0px 223px 89px rgba(0, 0, 0, 0.01), 0px 126px 75px rgba(0, 0, 0, 0.03), 0px 56px 56px rgba(0, 0, 0, 0.04), 0px 14px 31px rgba(0, 0, 0, 0.05), 0px 0px 0px rgba(0, 0, 0, 0.05)"
-      mx="auto"
-      h="xs"
     >
       <Steps>
         <Step
+          clickable={() => goToStep("one")}
+          icon={{ active: <>1</>, inactive: <>1</> }}
           label={{ title: "One" }}
-          clickable={() => goToStep("one", "log one")}
-          isActive={!isStepFinished("one")}
-          isFinished={isStepFinished("one")}
-          icon={{ active: <>1</> }}
+          state={state}
+          stepKey="one"
           withTrack
-          animate
         />
         <Step
-          label={{ title: "Two" }}
-          clickable={() => goToStep("two", "log two")}
-          isActive={isStepFinished("one")}
-          isFinished={isStepFinished("two")}
-          withTrack
           animate
+          clickable={() => goToStep("two")}
+          label={{ title: "Two" }}
+          state={state}
+          stepKey="two"
+          withTrack
           icon={{
             active: <>2</>,
             inactive: <>2</>,
           }}
         />
         <Step
+          clickable={() => goToStep("three")}
           label={{ title: "Three" }}
-          clickable={() => goToStep("three", "log three")}
-          isActive={isStepFinished("two")}
-          isFinished={isStepFinished("three")}
+          state={state}
+          stepKey="three"
           icon={{
             active: <>3</>,
             inactive: <>3</>,
@@ -66,13 +63,9 @@ const StepperComponent: FC = () => {
         border="1px"
         borderColor="gray.200"
       >
-        <StepperBody show={!isStepFinished("one")}></StepperBody>
-        <StepperBody show={isStepFinished("one") && !isStepFinished("two")}>
-          {data}
-        </StepperBody>
-        <StepperBody show={isStepFinished("two") && !isStepFinished("three")}>
-          {data}
-        </StepperBody>
+        <StepperBody show={isStepActive("one")}>one</StepperBody>
+        <StepperBody show={isStepActive("two")}>two</StepperBody>
+        <StepperBody show={isStepActive("three")}>three</StepperBody>
       </StepperContent>
     </Stepper>
   );

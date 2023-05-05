@@ -1,29 +1,30 @@
+import { StepperWrapper } from "./stepperwrapper";
 import { FlexProps } from "@chakra-ui/react";
 import React, {
+  PropsWithChildren,
   createContext,
   useContext,
-  FC,
-  PropsWithChildren,
-  useState,
   useEffect,
+  useState,
+  FC,
 } from "react";
-import { StepperWrapper } from "./stepperwrapper";
 
 export const StepperContext = createContext<{
   vertical: boolean;
-  circlePlacement: "left" | "right";
   trackGap: FlexProps["gap"];
+  circlePlacement: "left" | "right";
 }>({ vertical: false, circlePlacement: "left", trackGap: "5" });
 
 export const useStepperTheme = () => useContext(StepperContext);
 
-export const Stepper: FC<
+type StepperComponent = FC<
   PropsWithChildren & {
     vertical?: boolean;
-    circlePlacement?: "left" | "right";
     trackGap?: FlexProps["gap"];
+    circlePlacement?: "left" | "right";
   } & FlexProps
-> = ({
+>;
+export const Stepper: StepperComponent = ({
   children,
   vertical = false,
   circlePlacement = "left",

@@ -1,79 +1,100 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 
-type Actions = {
+interface Action {
   type: "setallfinished" | "reset" | "jump";
   step: string | string[];
-};
+}
 
-const stepperReducer = (
-  state: Record<string, boolean>,
-  { step, type }: Actions
-) => {
+interface Step {
+  isActive: boolean;
+  isFinished: boolean;
+}
+
+export interface State {
+  [property: string]: Step;
+}
+
+const stepperReducer = (state: State, { type, step }: Action) => {
   switch (type) {
     case "jump": {
       const keys = Object.keys(state);
       if ((step as string) in state) {
-        const filtered = keys.slice(0, keys.indexOf(step as string));
-        keys.forEach((val) => (state[val] = false));
+        const filtered = keys.slice(0, keys.indexOf(step as string) + 1);
+        keys.forEach((val) => {
+          state[val] = { isActive: false, isFinished: false };
+        });
+
         filtered.forEach((val) => {
-          state[val] = true;
+          state[val] = {
+            isActive: true,
+            isFinished: val !== step ? true : false,
+          };
         });
       }
       return { ...state };
     }
 
     case "setallfinished": {
-      const newState: Record<string, boolean> = {};
-      Object.keys(state).forEach((key) => (newState[key] = true));
-      return newState;
+      Object.keys(state).forEach((key) => {
+        state[key] = { isActive: true, isFinished: true };
+      });
+      return { ...state };
     }
     case "reset": {
-      const newState: Record<string, boolean> = {};
-      Object.keys(state).forEach((key) => (newState[key] = false));
-      return newState;
+      Object.keys(state).forEach((key) => {
+        state[key] = { isActive: false, isFinished: false };
+      });
+      return { ...state };
     }
   }
 };
 
-/**
- * A custom hook that helps manage progress through a series of steps by returning an object containing methods to manage the stepper.
-@param {T[]} steps - An array of strings representing the steps to be completed.
-@param {T} initialStep - An optional parameter representing the initial step to start with.
-@returns {Object} An object containing methods to manage the stepper, including resetting, jumping to a specific step, checking if a step is finished, and marking all steps as finished.
- */
-export const useStepper = <T extends string>(steps: T[], initialStep?: T) => {
-  const initialData = Object.fromEntries(steps.map((key) => [key, false]));
+export const useStepper = <T extends string>(
+  steps: T[],
+  initialStep = steps[0]
+) => {
+  const initialData: State = Object.fromEntries(
+    steps.map((key) => [key, { isActive: false, isFinished: false }])
+  );
   const [state, dispatch] = useReducer(stepperReducer, initialData);
+  const [step, setStep] = useState(initialStep ?? steps[0]);
   const [data, setData] = useState<any>();
 
   useEffect(() => {
     initialStep && dispatch({ type: "jump", step: initialStep });
   }, [initialStep]);
 
-  const isStepFinished = useCallback((step: T) => state[step], [state]);
+  const isStepActive = useCallback((Step: T) => Step === step, [step]);
 
   const goToStep = useCallback(
-    <D>(step: T, data?: D) => {
+    (step: T, data?: any) => {
+      if (isStepActive(step)) return;
       if (data) setData(data);
+      setStep(step);
       dispatch({ step, type: "jump" });
     },
-    [data]
+    [isStepActive]
   );
 
-  const setAllFinished = useCallback(
-    () => dispatch({ type: "setallfinished", step: Object.keys(state) }),
-    []
-  );
+  const setAllFinished = useCallback(() => {
+    if (step === "done") return;
+    setStep("done" as T);
+    dispatch({ type: "setallfinished", step: Object.keys(state) });
+  }, [step]);
 
-  const reset = useCallback(
-    () => dispatch({ type: "reset", step: Object.keys(state) }),
-    []
-  );
+  const reset = useCallback(() => {
+    if (step === "undone") return;
+    setStep("undone" as T);
+    dispatch({ type: "reset", step: Object.keys(state) });
+  }, [step]);
+
   return {
+    step,
+    data,
+    state,
     reset,
     goToStep,
-    isStepFinished,
+    isStepActive,
     setAllFinished,
-    data,
   };
 };

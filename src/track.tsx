@@ -1,13 +1,13 @@
 import { BoxProps, Box, LayoutProps } from "@chakra-ui/react";
-import React, { FC } from "react";
 import { useStepperTheme } from "./stepper";
+import React, { FC } from "react";
 
 export interface TrackProps {
-  isFinished?: boolean;
-  trackThickness?: LayoutProps["w"];
   animate?: boolean | BoxProps["transition"];
   trackBackgroundColor?: BoxProps["bgColor"];
   trackForeGroundColor?: BoxProps["bgColor"];
+  trackThickness?: LayoutProps["w"];
+  isFinished?: boolean;
 }
 
 type TrackComponent = FC<TrackProps>;

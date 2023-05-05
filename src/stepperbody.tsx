@@ -1,8 +1,6 @@
 import React, { FC, PropsWithChildren } from "react";
 
-export const StepperBody: FC<PropsWithChildren & { show: boolean }> = ({
-  children,
-  show,
-}) => {
+type StepperBodyComponent = FC<PropsWithChildren & { show: boolean }>;
+export const StepperBody: StepperBodyComponent = ({ children, show }) => {
   return show ? <>{children}</> : null;
 };
