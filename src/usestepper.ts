@@ -67,8 +67,8 @@ export const useStepper = <T extends string>(
   const isStepActive = useCallback((Step: T) => Step === step, [step]);
 
   const goToStep = useCallback(
-    (step: T, data?: any) => {
-      if (isStepActive(step)) return;
+    (step: T, data?: any, force = false) => {
+      if (isStepActive(step) && !force) return;
       if (data) setData(data);
       setStep(step);
       dispatch({ step, type: "jump" });
@@ -93,6 +93,7 @@ export const useStepper = <T extends string>(
     data,
     state,
     reset,
+    setData,
     goToStep,
     isStepActive,
     setAllFinished,

@@ -10,8 +10,16 @@ import { Step } from "./step";
 const StepperComponent: FC = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
 
-  const { isStepActive, setAllFinished, goToStep, state, reset, data, step } =
-    useStepper(["one", "two", "three"]);
+  const {
+    setAllFinished,
+    isStepActive,
+    goToStep,
+    setData,
+    state,
+    reset,
+    data,
+    step,
+  } = useStepper(["one", "two", "three"]);
 
   return (
     <Stepper
@@ -63,9 +71,12 @@ const StepperComponent: FC = () => {
         border="1px"
         borderColor="gray.200"
       >
-        <StepperBody show={isStepActive("one")}>one</StepperBody>
-        <StepperBody show={isStepActive("two")}>two</StepperBody>
-        <StepperBody show={isStepActive("three")}>three</StepperBody>
+        <StepperBody show={isStepActive("one")}>
+          one {data}
+          <Button onClick={() => goToStep("one", "log one")}>go to one</Button>
+        </StepperBody>
+        <StepperBody show={isStepActive("two")}>two {data}</StepperBody>
+        <StepperBody show={isStepActive("three")}>three {data}</StepperBody>
       </StepperContent>
     </Stepper>
   );
