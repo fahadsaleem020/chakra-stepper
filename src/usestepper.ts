@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 
 interface Action {
   type: "setallfinished" | "reset" | "jump";
@@ -49,6 +49,7 @@ const stepperReducer = (state: State, { type, step }: Action) => {
   }
 };
 
+export type UseStepper = ReturnType<typeof useStepper>;
 export const useStepper = <T extends string>(
   steps: T[],
   initialStep = steps[0]

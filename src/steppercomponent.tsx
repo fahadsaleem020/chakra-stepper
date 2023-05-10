@@ -1,25 +1,21 @@
-import { StepperContent } from "./steppercontent";
 import { Button, useMediaQuery } from "@chakra-ui/react";
+import { StepperContent } from "./steppercontent";
 import { StepperBody } from "./stepperbody";
 import { useStepper } from "./usestepper";
 import { Stepper } from "./stepper";
-import React, { FC } from "react";
 import { Steps } from "./steps";
 import { Step } from "./step";
+import React from "react";
 
-const StepperComponent: FC = () => {
+const StepperComponent = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
 
-  const {
-    setAllFinished,
-    isStepActive,
-    goToStep,
-    setData,
-    state,
-    reset,
-    data,
-    step,
-  } = useStepper(["one", "two", "three"]);
+  const { isStepActive, goToStep, state, data, setData } = useStepper(
+    ["one", "two", "three"],
+    "three"
+  );
+
+  console.log("rendered");
 
   return (
     <Stepper
@@ -71,10 +67,7 @@ const StepperComponent: FC = () => {
         border="1px"
         borderColor="gray.200"
       >
-        <StepperBody show={isStepActive("one")}>
-          one {data}
-          <Button onClick={() => goToStep("one", "log one")}>go to one</Button>
-        </StepperBody>
+        <StepperBody show={isStepActive("one")}>one {data}</StepperBody>
         <StepperBody show={isStepActive("two")}>two {data}</StepperBody>
         <StepperBody show={isStepActive("three")}>three {data}</StepperBody>
       </StepperContent>
