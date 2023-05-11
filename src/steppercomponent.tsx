@@ -1,5 +1,5 @@
-import { useMediaQuery } from "@chakra-ui/react";
 import { StepperContent } from "./steppercontent";
+import { useMediaQuery } from "@chakra-ui/react";
 import { StepperBody } from "./stepperbody";
 import { useStepper } from "./usestepper";
 import { Stepper } from "./stepper";
