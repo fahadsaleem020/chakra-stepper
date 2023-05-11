@@ -1,4 +1,4 @@
-import { Button, useMediaQuery } from "@chakra-ui/react";
+import { useMediaQuery } from "@chakra-ui/react";
 import { StepperContent } from "./steppercontent";
 import { StepperBody } from "./stepperbody";
 import { useStepper } from "./usestepper";
@@ -10,7 +10,7 @@ import React from "react";
 const StepperComponent = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
 
-  const { isStepActive, goToStep, state, data, setData } = useStepper(
+  const { isStepActive, goToStep, state, data } = useStepper(
     ["one", "two", "three"],
     "three"
   );
