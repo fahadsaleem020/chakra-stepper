@@ -1,0 +1,148 @@
+[33mcommit 6621c387dbc4f8cc2279c3454dfce8157fcbaf3a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Thu May 11 15:21:31 2023 +0500
+
+    fix: realease limit exceeded
+    
+    release limit exceeded
+
+[33mcommit 7537d7f6a19773856524114afcd92b0df9b61a57[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Thu May 11 13:51:42 2023 +0500
+
+    fix(index.ts): missing export
+    
+    exported mission types
+
+[33mcommit e3f2f3ff3a9d48cdc441022594e52c43c14f98a6[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Thu May 11 13:22:22 2023 +0500
+
+    feat(usestepper hook): added type
+    
+    exported useStepper hook type
+
+[33mcommit b70a2cd2b19d3331087292625c998b5cc6c38f3f[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed May 10 21:28:40 2023 +0500
+
+    feat(usestepper.tsx): type
+    
+    added type for useStepper hook
+
+[33mcommit a297dfc680599cfcb97b02a43cfa0a003abd81fe[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed May 10 00:30:23 2023 +0500
+
+    feat(usestepper.ts): optimized goToStep method
+    
+    add force para for re-rendering currently active step
+
+[33mcommit d0afffb6b2b9d4ea029f444b579d5780b73eac25[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Fri May 5 14:18:02 2023 +0500
+
+    fix(usestepper.ts): optimized
+    
+    optimized
+    
+    BREAKING CHANGE: step component has state and stepKey prop usestepper is modified
+
+[33mcommit 36bd0fa8cf060828155a6d2a75b8e4d53ca47e1a[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed Apr 26 20:48:12 2023 +0500
+
+    fix(bug fixed): none
+    
+    none
+
+[33mcommit f029ceaa689dfeb83205aa0ef10999658965b86d[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed Apr 26 18:15:25 2023 +0500
+
+    fix(non): none
+    
+    none
+
+[33mcommit 066b5209ce3f26ae119fec7873131a05daf36d82[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed Apr 26 17:47:27 2023 +0500
+
+    fix(usestepper.ts): with data
+    
+    data that can be transferred
+
+[33mcommit 91d77e30a1acac92a22fb0e2b6c4ea482ac94380[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed Apr 26 16:55:35 2023 +0500
+
+    fix: none
+    
+    none
+
+[33mcommit c3eeb890da772eaaeae0beeb5c7d0441baf88e3f[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed Apr 26 12:02:27 2023 +0500
+
+    fix(step.tsx): removed logs
+    
+    removed console.logs
+
+[33mcommit e340e4d822acd3e3095f79ae89f1f8a518a69a6c[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Wed Apr 26 12:00:09 2023 +0500
+
+    fix(step.tsx): fixed title and description color overrides
+    
+    fixed title and description color overrides.
+
+[33mcommit f684c8140ed11ebead918f8832b2000557203c49[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Fri Apr 21 21:56:35 2023 +0500
+
+    feat(usestepper.tsx and stepperbody.tsx): generics
+    
+    added generics and remove hide prop from stepperBody component
+    
+    BREAKING CHANGE: stepperBody component doesn't accepts hide prop anymore and  trackthickneess props
+    is now  layoutprop['w']
+
+[33mcommit 5c86915e30b3b1cad64e9f3c895097d5caa5d83e[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Fri Apr 7 23:56:53 2023 +0500
+
+    fix(package.json): "types": "index.d.tx"
+    
+    modified
+
+[33mcommit 30fa9a6591ab0386fc7dbf2cd1695f7c7d1e7c0c[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Fri Apr 7 23:26:33 2023 +0500
+
+    fix(rollup.config.mjs): module context
+    
+    icon module context
+
+[33mcommit ec93330a3c63948bb4a8bf0f32970fcf4eeb8a69[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Fri Apr 7 23:21:03 2023 +0500
+
+    fix: init
+    
+    init
+
+[33mcommit 5400e0eef2db00624ecb4cfae72c2c0993ea6cf6[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Fri Apr 7 23:18:04 2023 +0500
+
+    fix: init
+    
+    init
+
+[33mcommit 957e5019df317d21f45094170f22ec0a98d48c15[m
+Author: palari <fahadsaleem020@gmail.com>
+Date:   Fri Apr 7 23:13:51 2023 +0500
+
+    fix: init
+    
+    init

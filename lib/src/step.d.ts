@@ -3,37 +3,40 @@ import { FC, ReactElement } from "react";
 import { IconBaseProps } from "react-icons";
 import { TrackProps } from "./track";
 import { State } from "./usestepper";
-type StepState = {
-    state: State;
-    stepKey: keyof State;
-    isActive?: never;
-    isFinished?: never;
-} | {
-    state?: never;
-    stepKey?: never;
-    isActive: boolean;
-    isFinished: boolean;
-};
-type StepComponent = FC<StepState & {
+type StepState =
+  | {
+      state: State;
+      stepKey: keyof State;
+      isActive?: never;
+      isFinished?: never;
+    }
+  | {
+      state?: never;
+      stepKey?: never;
+      isActive: boolean;
+      isFinished: boolean;
+    };
+type StepComponent = FC<
+  StepState & {
     isLoading?: boolean;
     isInvalid?: boolean;
     label?: Partial<{
-        title: string;
-        description: string;
+      title: string;
+      description: string;
     }>;
     labelColor?: Partial<{
-        title: HeadingProps["color"];
-        description: HeadingProps["color"];
+      title: HeadingProps["color"];
+      description: HeadingProps["color"];
     }>;
     labelFontSize?: Partial<{
-        title: HeadingProps["size"];
-        description: HeadingProps["size"];
+      title: HeadingProps["size"];
+      description: HeadingProps["size"];
     }>;
     icon?: Partial<{
-        error: ReactElement;
-        active: ReactElement;
-        inactive: ReactElement;
-        finished: ReactElement;
+      error: ReactElement;
+      active: ReactElement;
+      inactive: ReactElement;
+      finished: ReactElement;
     }>;
     iconSize?: IconBaseProps["size"];
     iconColor?: IconBaseProps["color"];
@@ -42,6 +45,13 @@ type StepComponent = FC<StepState & {
     circleColorScheme?: IconButtonProps["colorScheme"];
     withTrack?: boolean;
     clickable?: () => void;
-} & Pick<TrackProps, "trackBackgroundColor" | "trackForeGroundColor" | "trackThickness" | "animate">>;
+  } & Pick<
+      TrackProps,
+      | "trackBackgroundColor"
+      | "trackForeGroundColor"
+      | "trackThickness"
+      | "animate"
+    >
+>;
 export declare const Step: StepComponent;
 export {};

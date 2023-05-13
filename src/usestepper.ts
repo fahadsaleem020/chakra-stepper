@@ -49,7 +49,22 @@ const stepperReducer = (state: State, { type, step }: Action) => {
   }
 };
 
-export type UseStepper = ReturnType<typeof useStepper>;
+export interface UseStepper<T extends string = string> {
+  goToStep: (step: T, data?: any, force?: boolean) => void;
+  isStepActive: (step: T) => boolean;
+  setData: (data?: any) => void;
+  setAllFinished: () => void;
+  reset: () => void;
+  data?: any;
+  step: T;
+  state: {
+    [key in T]: {
+      isActive: boolean;
+      isFinished: boolean;
+    };
+  };
+}
+
 export const useStepper = <T extends string>(
   steps: T[],
   initialStep = steps[0]
