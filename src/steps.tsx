@@ -1,6 +1,6 @@
 import { FlexProps, Flex } from "@chakra-ui/react";
-import React, { FC } from "react";
 import { useStepperTheme } from "./stepper";
+import React, { FC } from "react";
 
 export const Steps: FC<FlexProps> = ({ children, ...props }) => {
   const { vertical, circlePlacement, trackGap } = useStepperTheme();

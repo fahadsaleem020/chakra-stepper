@@ -90,6 +90,9 @@ export const Step: StepComponent = ({
   const { circlePlacement } = useStepperTheme();
   let buttonStyles: IconButtonProps;
 
+  const steps = Object.keys(state!);
+  const stepNumber = steps.indexOf(stepKey as string) + 1;
+
   if (state?.[stepKey].isFinished ?? isFinished) {
     buttonStyles = {
       variant: "solid",
@@ -105,14 +108,14 @@ export const Step: StepComponent = ({
       variant: "outline",
       "aria-label": "step",
       rounded: circleRadius ?? "full",
-      icon: isInvalid ? icon?.error : icon?.active,
+      icon: isInvalid ? icon?.error : icon?.active ?? <>{stepNumber}</>,
       colorScheme: isInvalid ? "red" : circleColorScheme ?? "blue",
     };
   } else {
     buttonStyles = {
       colorScheme: "gray",
       "aria-label": "step",
-      icon: icon?.inactive,
+      icon: icon?.inactive ?? <>{stepNumber}</>,
       rounded: circleRadius ?? "full",
     };
   }

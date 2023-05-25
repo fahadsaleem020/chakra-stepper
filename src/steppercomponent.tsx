@@ -10,12 +10,11 @@ import React from "react";
 const StepperComponent = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
 
-  const { isStepActive, goToStep, state, data } = useStepper(
-    ["one", "two", "three"],
-    "three"
-  );
-
-  console.log("rendered");
+  const { isStepActive, goToStep, state, data } = useStepper([
+    "one",
+    "two",
+    "three",
+  ]);
 
   return (
     <Stepper
@@ -32,7 +31,6 @@ const StepperComponent = () => {
       <Steps>
         <Step
           clickable={() => goToStep("one")}
-          icon={{ active: <>1</>, inactive: <>1</> }}
           label={{ title: "One" }}
           state={state}
           stepKey="one"
@@ -45,20 +43,12 @@ const StepperComponent = () => {
           state={state}
           stepKey="two"
           withTrack
-          icon={{
-            active: <>2</>,
-            inactive: <>2</>,
-          }}
         />
         <Step
           clickable={() => goToStep("three")}
           label={{ title: "Three" }}
           state={state}
           stepKey="three"
-          icon={{
-            active: <>3</>,
-            inactive: <>3</>,
-          }}
         />
       </Steps>
       <StepperContent
