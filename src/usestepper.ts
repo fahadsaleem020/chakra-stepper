@@ -92,6 +92,16 @@ export const useStepper = <T extends string>(
     [isStepActive]
   );
 
+  const next = useCallback(() => {
+    const nextStep = steps.at(steps.indexOf(step) + 1);
+    if (nextStep) goToStep(nextStep);
+  }, [step]);
+
+  const previous = useCallback(() => {
+    const previousStep = steps.at(steps.indexOf(step) - 1);
+    if (previousStep !== steps.at(-1)) goToStep(previousStep as any);
+  }, [step]);
+
   const setAllFinished = useCallback(() => {
     if (step === "done") return;
     setStep("done" as T);
@@ -108,8 +118,10 @@ export const useStepper = <T extends string>(
     step,
     data,
     state,
+    next,
     reset,
     setData,
+    previous,
     goToStep,
     isStepActive,
     setAllFinished,

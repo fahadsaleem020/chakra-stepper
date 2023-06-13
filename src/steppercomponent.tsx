@@ -10,11 +10,13 @@ import React from "react";
 const StepperComponent = () => {
   const [isMobile] = useMediaQuery("(max-width: 720px)");
 
-  const { isStepActive, goToStep, state, data } = useStepper([
+  const { isStepActive, goToStep, state, data, next, previous } = useStepper([
     "one",
     "two",
     "three",
   ]);
+
+  console.log("yes");
 
   return (
     <Stepper
@@ -57,9 +59,27 @@ const StepperComponent = () => {
         border="1px"
         borderColor="gray.200"
       >
-        <StepperBody show={isStepActive("one")}>one {data}</StepperBody>
-        <StepperBody show={isStepActive("two")}>two {data}</StepperBody>
-        <StepperBody show={isStepActive("three")}>three {data}</StepperBody>
+        <StepperBody show={isStepActive("one")}>
+          one {data}
+          <br />
+          <br />
+          <button onClick={() => next()}>next</button>
+          <button onClick={() => previous()}>previous</button>
+        </StepperBody>
+        <StepperBody show={isStepActive("two")}>
+          two {data}
+          <br />
+          <br />
+          <button onClick={() => next()}>next</button>
+          <button onClick={() => previous()}>previous</button>
+        </StepperBody>
+        <StepperBody show={isStepActive("three")}>
+          three {data}
+          <br />
+          <br />
+          <button onClick={() => next()}>next</button>
+          <button onClick={() => previous()}>previous</button>
+        </StepperBody>
       </StepperContent>
     </Stepper>
   );
