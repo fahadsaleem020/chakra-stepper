@@ -54,11 +54,13 @@ export interface UseStepper<T extends string = string> {
   isStepActive: (step: T) => boolean;
   setData: (data?: any) => void;
   setAllFinished: () => void;
+  previous: () => void;
   reset: () => void;
+  next: () => void;
   data?: any;
   step: T;
   state: {
-    [key in T]: {
+    [key in any]: {
       isActive: boolean;
       isFinished: boolean;
     };

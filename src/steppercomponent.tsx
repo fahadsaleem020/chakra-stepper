@@ -16,8 +16,6 @@ const StepperComponent = () => {
     "three",
   ]);
 
-  console.log("yes");
-
   return (
     <Stepper
       h="xs"
@@ -84,5 +82,3 @@ const StepperComponent = () => {
     </Stepper>
   );
 };
-
-export default StepperComponent;
